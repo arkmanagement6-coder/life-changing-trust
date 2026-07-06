@@ -138,12 +138,12 @@ const initialCampaigns = [
 
 // Rich CRM donor database records
 const initialDonations = [
-  { id: "TXN1001", donorName: "Amit Sharma", email: "amit.sharma@gmail.com", pan: "ABCPS1234K", amount: 5000, date: "2026-07-05", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0123", phone: "+91 98330 12345", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "WhatsApp Referral", device: "Mobile", interactionCount: 4 },
-  { id: "TXN1002", donorName: "Sneha Patel", email: "sneha.p@yahoo.com", pan: "XYZPD9876J", amount: 2501, date: "2026-07-04", campaignId: 3, campaignTitle: "Emergency Care for Priya's Cancer Chemotherapy", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0124", phone: "+91 91220 54321", location: "Pune, Maharashtra", frequency: "Monthly", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 8 },
-  { id: "TXN1003", donorName: "Ramesh Kumar", email: "donor@projectlife.org", pan: "ABCPS9090L", amount: 15000, date: "2026-07-03", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0125", phone: "+91 98110 56789", location: "Delhi, National Capital", frequency: "Monthly", preference: "Healthcare", channel: "Ads Campaign", device: "Mobile", interactionCount: 12 },
-  { id: "TXN1004", donorName: "Rohan Verma", email: "rohan.v@gmail.com", pan: "DEFTR4567M", amount: 1001, date: "2026-07-02", campaignId: 4, campaignTitle: "Send 50 Underprivileged Girls to High School", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0126", phone: "+91 88770 45612", location: "Pune, Maharashtra", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 2 },
-  { id: "TXN1005", donorName: "Vikram Malhotra", email: "vikram@malhotragroup.in", pan: "AAACM9090L", amount: 50000, date: "2026-06-30", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0127", phone: "+91 99000 88888", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 15 },
-  { id: "TXN1006", donorName: "Ananya Iyer", email: "ananya.iyer@gmail.com", pan: "BKLPM7788M", amount: 1200, date: "2026-06-25", campaignId: 2, campaignTitle: "Sponsor Digital Learning Labs for 5 Rural Schools", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0128", phone: "+91 98220 90909", location: "Bangalore, Karnataka", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 3 }
+  { id: "TXN1001", donorName: "Amit Sharma", email: "amit.sharma@gmail.com", pan: "ABCPS1234K", amount: 5000, date: "2026-07-05", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0123", phone: "+91 98330 12345", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "WhatsApp Referral", device: "Mobile", interactionCount: 4, status: "Success" },
+  { id: "TXN1002", donorName: "Sneha Patel", email: "sneha.p@yahoo.com", pan: "XYZPD9876J", amount: 2501, date: "2026-07-04", campaignId: 3, campaignTitle: "Emergency Care for Priya's Cancer Chemotherapy", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0124", phone: "+91 91220 54321", location: "Pune, Maharashtra", frequency: "Monthly", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 8, status: "Success" },
+  { id: "TXN1003", donorName: "Ramesh Kumar", email: "donor@projectlife.org", pan: "ABCPS9090L", amount: 15000, date: "2026-07-03", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0125", phone: "+91 98110 56789", location: "Delhi, National Capital", frequency: "Monthly", preference: "Healthcare", channel: "Ads Campaign", device: "Mobile", interactionCount: 12, status: "Success" },
+  { id: "TXN1004", donorName: "Rohan Verma", email: "rohan.v@gmail.com", pan: "DEFTR4567M", amount: 1001, date: "2026-07-02", campaignId: 4, campaignTitle: "Send 50 Underprivileged Girls to High School", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0126", phone: "+91 88770 45612", location: "Pune, Maharashtra", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 2, status: "Success" },
+  { id: "TXN1005", donorName: "Vikram Malhotra", email: "vikram@malhotragroup.in", pan: "AAACM9090L", amount: 50000, date: "2026-06-30", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0127", phone: "+91 99000 88888", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 15, status: "Success" },
+  { id: "TXN1006", donorName: "Ananya Iyer", email: "ananya.iyer@gmail.com", pan: "BKLPM7788M", amount: 1200, date: "2026-06-25", campaignId: 2, campaignTitle: "Sponsor Digital Learning Labs for 5 Rural Schools", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0128", phone: "+91 98220 90909", location: "Bangalore, Karnataka", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 3, status: "Success" }
 ];
 
 const initialVolunteers = [
@@ -173,12 +173,12 @@ const initialSchoolCases = [
 ];
 
 const initialUsers = [
-  { email: "donor@projectlife.org", password: "password", name: "Ramesh Kumar", role: "donor" },
-  { email: "volunteer@projectlife.org", password: "password", name: "Kunal Gupta", role: "volunteer" },
-  { email: "csr@projectlife.org", password: "password", name: "Vikram Malhotra", role: "csr", organization: "Tata Consultancy Services (TCS)" },
-  { email: "hospital@projectlife.org", password: "password", name: "Dr. Amit Verma", role: "hospital", organization: "Max Healthcare, Gurgaon" },
-  { email: "school@projectlife.org", password: "password", name: "Sister Mary", role: "school", organization: "Gramin Shiksha Kendra, Wardha" },
-  { email: "admin@projectlife.org", password: "password", name: "Chairperson Shalini", role: "admin" }
+  { email: "donor@projectlife.org", password: "password", name: "Ramesh Kumar", role: "donor", blocked: false, creationDate: "2026-01-15", activityCount: 14 },
+  { email: "volunteer@projectlife.org", password: "password", name: "Kunal Gupta", role: "volunteer", blocked: false, creationDate: "2026-02-10", activityCount: 22 },
+  { email: "csr@projectlife.org", password: "password", name: "Vikram Malhotra", role: "csr", organization: "Tata Consultancy Services (TCS)", blocked: false, creationDate: "2026-03-01", activityCount: 6 },
+  { email: "hospital@projectlife.org", password: "password", name: "Dr. Amit Verma", role: "hospital", organization: "Max Healthcare, Gurgaon", blocked: false, creationDate: "2026-03-24", activityCount: 9 },
+  { email: "school@projectlife.org", password: "password", name: "Sister Mary", role: "school", organization: "Gramin Shiksha Kendra, Wardha", blocked: false, creationDate: "2026-04-12", activityCount: 3 },
+  { email: "admin@projectlife.org", password: "password", name: "Chairperson Shalini", role: "admin", blocked: false, creationDate: "2025-12-01", activityCount: 45 }
 ];
 
 // Security Audit Logs
@@ -186,6 +186,17 @@ const initialAuditLogs = [
   { id: "AUD-1001", date: "2026-07-05", eventType: "Failed Payment", severity: "Low", message: "User Sneha Patel triggered a failed Razorpay UPI settlement (Code: U19: Insufficient balance).", flags: "Gateway Code Error" },
   { id: "AUD-1002", date: "2026-07-04", eventType: "Suspicious Pattern", severity: "Medium", message: "Ramesh Kumar triggered multiple rapid donations of ₹5,000 within 2 seconds. Flagged as double-click or gateway bounce.", flags: "Debounce Filter Alert" },
   { id: "AUD-1003", date: "2026-07-02", eventType: "High Value Flag", severity: "Info", message: "Vikram Malhotra completed single donation of ₹50,000. Verified PAN and receipt logs.", flags: "Compliance Pass" }
+];
+
+// Initial CMS content
+const initialCmsBanners = {
+  headline: "Together We Can Change Lives",
+  subheading: "Changing Lives Through Education, Healthcare and Compassion."
+};
+
+const initialCmsBlogs = [
+  { id: 1, title: "How 80G Tax Benefits Empower Indian Givers", author: "Chairperson Shalini", date: "2026-07-04", content: "Section 80G is an amazing tool to incentivize charity. Donors receive a 50% deduction on their gross taxable income. Today we are launching direct integrations..." },
+  { id: 2, title: "Bridging the Gaya Education Gap with Solar Classrooms", author: "Sister Mary", date: "2026-06-28", content: "Providing internet and solar backups has completely transformed our attendance registers. Students love coding..." }
 ];
 
 export const AppProvider = ({ children }) => {
@@ -244,6 +255,17 @@ export const AppProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : initialAuditLogs;
   });
 
+  // CMS States
+  const [cmsBanners, setCmsBanners] = useState(() => {
+    const saved = localStorage.getItem('life_cms_banners');
+    return saved ? JSON.parse(saved) : initialCmsBanners;
+  });
+
+  const [cmsBlogs, setCmsBlogs] = useState(() => {
+    const saved = localStorage.getItem('life_cms_blogs');
+    return saved ? JSON.parse(saved) : initialCmsBlogs;
+  });
+
   const [notifications, setNotifications] = useState([
     { id: 1, title: "New donation received", message: "Amit Sharma donated ₹5,000 to Aarav's Surgery.", time: "10 mins ago", read: false },
     { id: 2, title: "Campaign verified", message: "Campaign 'Send 50 Underprivileged Girls to High School' is now live.", time: "1 day ago", read: true }
@@ -294,7 +316,15 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('life_audit_logs', JSON.stringify(auditLogs));
   }, [auditLogs]);
 
-  // 1. Donor Segmentation Logic
+  useEffect(() => {
+    localStorage.setItem('life_cms_banners', JSON.stringify(cmsBanners));
+  }, [cmsBanners]);
+
+  useEffect(() => {
+    localStorage.setItem('life_cms_blogs', JSON.stringify(cmsBlogs));
+  }, [cmsBlogs]);
+
+  // Donor Segmentation Logic
   const getDonorSegment = (donorEmail) => {
     const donorDonations = donations.filter(d => d.email.toLowerCase() === donorEmail.toLowerCase());
     if (donorDonations.length === 0) return 'Cold';
@@ -308,19 +338,17 @@ export const AppProvider = ({ children }) => {
     if (donationCount >= 2 && donationCount <= 3) return 'Warm';
     if (donationCount === 1) return 'Cold';
 
-    // Cause preferences
     const hasHealth = donorDonations.some(d => d.campaignTitle.includes("Aarav") || d.campaignTitle.includes("Priya"));
     if (hasHealth) return 'Healthcare';
     return 'Education';
   };
 
-  // 2. Global Analytics Computations
+  // Global Analytics Computations
   const getCrmAnalytics = () => {
     const totalDonorsCount = new Set(donations.map(d => d.email.toLowerCase())).size;
     const totalReceipts = donations.reduce((sum, d) => sum + d.amount, 0);
     const ltv = totalDonorsCount > 0 ? Math.floor(totalReceipts / totalDonorsCount) : 0;
     
-    // Repeat donation rate
     const counts = {};
     donations.forEach(d => {
       counts[d.email.toLowerCase()] = (counts[d.email.toLowerCase()] || 0) + 1;
@@ -340,6 +368,9 @@ export const AppProvider = ({ children }) => {
   const loginUser = (email, password) => {
     const user = userRegistry.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
     if (user) {
+      if (user.blocked) {
+        return { success: false, message: "This account has been blocked by NGO admins due to compliance flags." };
+      }
       setCurrentUser({
         name: user.name,
         email: user.email,
@@ -364,7 +395,10 @@ export const AppProvider = ({ children }) => {
       password: details.password,
       name: details.name,
       role: details.role,
-      organization: details.organization || ""
+      organization: details.organization || "",
+      blocked: false,
+      creationDate: new Date().toISOString().split('T')[0],
+      activityCount: 1
     };
 
     setUserRegistry(prev => [...prev, newUser]);
@@ -420,9 +454,87 @@ export const AppProvider = ({ children }) => {
     return { success: true };
   };
 
-  // Actions
+  // Administration Extensions
+  const editUser = (email, updatedDetails) => {
+    setUserRegistry(prev => 
+      prev.map(u => u.email.toLowerCase() === email.toLowerCase() ? { ...u, ...updatedDetails } : u)
+    );
+  };
+
+  const toggleBlockUser = (email) => {
+    setUserRegistry(prev => 
+      prev.map(u => {
+        if (u.email.toLowerCase() === email.toLowerCase()) {
+          const nextBlocked = !u.blocked;
+          
+          // Log security event
+          setAuditLogs(prevLogs => [
+            {
+              id: "AUD-" + Math.floor(2000 + Math.random()*8000),
+              date: new Date().toISOString().split('T')[0],
+              eventType: nextBlocked ? "User Blocked" : "User Unblocked",
+              severity: "Medium",
+              message: `Admin modified compliance flag: Account ${email} toggled to ${nextBlocked ? 'Blocked' : 'Active'}.`,
+              flags: "Compliance Check"
+            },
+            ...prevLogs
+          ]);
+
+          return { ...u, blocked: nextBlocked };
+        }
+        return u;
+      })
+    );
+  };
+
+  const changeUserRole = (email, newRole) => {
+    setUserRegistry(prev => 
+      prev.map(u => u.email.toLowerCase() === email.toLowerCase() ? { ...u, role: newRole } : u)
+    );
+  };
+
+  const refundDonation = (txnId) => {
+    const txn = donations.find(d => d.id === txnId);
+    if (!txn) return { success: false, message: "Transaction ID not found." };
+    if (txn.status === 'Refunded') return { success: false, message: "Transaction is already refunded." };
+
+    // Update donation status
+    setDonations(prev => 
+      prev.map(d => d.id === txnId ? { ...d, status: 'Refunded' } : d)
+    );
+
+    // Subtract from campaign raised total
+    setCampaigns(prev => 
+      prev.map(c => {
+        if (c.id === txn.campaignId) {
+          const nextRaised = Math.max(0, c.raised - txn.amount);
+          return {
+            ...c,
+            raised: nextRaised,
+            donorsCount: Math.max(0, c.donorsCount - 1)
+          };
+        }
+        return c;
+      })
+    );
+
+    // Add security audit log
+    setAuditLogs(prev => [
+      {
+        id: "AUD-" + Math.floor(2000 + Math.random()*8000),
+        date: new Date().toISOString().split('T')[0],
+        eventType: "Refund Settled",
+        severity: "High",
+        message: `Admin triggered standard refund. Transaction ${txnId} marked Refunded. Campaign [ID: ${txn.campaignId}] adjusted by -₹${txn.amount.toLocaleString('en-IN')}.`,
+        flags: "Merchant Adjustment Pass"
+      },
+      ...prev
+    ]);
+
+    return { success: true };
+  };
+
   const addDonation = (donationDetails) => {
-    // 3. Security check: Fraud transaction detection
     const isAnomalousAmount = donationDetails.amount >= 50000;
     const currentDate = new Date().toISOString().split('T')[0];
     
@@ -461,7 +573,8 @@ export const AppProvider = ({ children }) => {
       preference: donationDetails.campaignTitle.includes("Aarav") || donationDetails.campaignTitle.includes("Priya") ? "Healthcare" : "Education",
       channel: donationDetails.channel || "Organic Search",
       device: donationDetails.device || "Mobile",
-      interactionCount: 1
+      interactionCount: 1,
+      status: "Success"
     };
 
     setDonations(prev => [newTxn, ...prev]);
@@ -480,7 +593,6 @@ export const AppProvider = ({ children }) => {
       })
     );
 
-    // If donation was made via a volunteer referral, update that volunteer's metrics
     if (donationDetails.volunteerRefCode) {
       setVolunteers(prevVolunteers => 
         prevVolunteers.map(v => {
@@ -493,7 +605,7 @@ export const AppProvider = ({ children }) => {
               clicks: newClicks,
               donationsGenerated: newDons,
               conversionRate: conversion,
-              points: v.points + 200 // Bonus points for generating a donation!
+              points: v.points + 200
             };
           }
           return v;
@@ -640,7 +752,6 @@ export const AppProvider = ({ children }) => {
     setVolunteerTasks(prev => 
       prev.map(t => t.id === taskId ? { ...t, status: "In Progress" } : t)
     );
-    // Increase clicks slightly when task starts
     setVolunteers(prev => 
       prev.map(v => v.name === volunteerName ? { ...v, clicks: v.clicks + 2 } : v)
     );
@@ -654,7 +765,6 @@ export const AppProvider = ({ children }) => {
       prev.map(t => t.id === taskId ? { ...t, status: "Completed" } : t)
     );
 
-    // Add points to volunteer leaderboard
     setVolunteers(prev => 
       prev.map(v => {
         if (v.name === volunteerName) {
@@ -686,7 +796,6 @@ export const AppProvider = ({ children }) => {
     ]);
   };
 
-  // Mock AI Generator
   const runAiCampaignGenerator = (cause, amount) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -721,6 +830,8 @@ export const AppProvider = ({ children }) => {
       hospitalCases,
       schoolCases,
       auditLogs,
+      cmsBanners,
+      cmsBlogs,
       notifications,
       setCurrentCampaignId,
       setActiveTab,
@@ -728,6 +839,10 @@ export const AppProvider = ({ children }) => {
       signupUser,
       logoutUser,
       resetPasswordUser,
+      editUser,
+      toggleBlockUser,
+      changeUserRole,
+      refundDonation,
       addDonation,
       submitHospitalCase,
       submitSchoolCase,
@@ -738,7 +853,9 @@ export const AppProvider = ({ children }) => {
       completeVolunteerTask,
       runAiCampaignGenerator,
       getDonorSegment,
-      getCrmAnalytics
+      getCrmAnalytics,
+      setCmsBanners,
+      setCmsBlogs
     }}>
       {children}
     </AppContext.Provider>

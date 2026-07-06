@@ -37,7 +37,7 @@ const AnimatedCounter = ({ value, prefix = "", suffix = "" }) => {
 };
 
 export default function LandingPage({ onDonateClick, onCampaignClick }) {
-  const { campaigns, volunteers, submitCsrProposal } = useContext(AppContext);
+  const { campaigns, volunteers, submitCsrProposal, cmsBanners } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState('All');
   
   // Interactive Map State
@@ -119,14 +119,11 @@ export default function LandingPage({ onDonateClick, onCampaignClick }) {
             </div>
             
             <h1 style={{ fontSize: '54px', fontWeight: '800', lineHeight: '1.15', marginBottom: '24px', letterSpacing: '-1px', fontFamily: 'var(--font-title)' }}>
-              Together We Can <br />
-              <span style={{ background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                Change Lives
-              </span>
+              {cmsBanners?.headline || "Together We Can Change Lives"}
             </h1>
             
             <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '36px' }}>
-              Project LIFE combines Airbnb-level designs, Stripe-grade payment security, and direct financial verification to deliver child education and critical healthcare treatments at scale.
+              {cmsBanners?.subheading || "Changing Lives Through Education, Healthcare and Compassion."}
             </p>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginBottom: '48px' }}>
