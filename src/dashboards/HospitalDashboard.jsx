@@ -1,19 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import { Heart, Plus, FileText, CheckCircle, Award, ShieldAlert } from 'lucide-react';
+import { Layout, Plus, FileText, CheckCircle, Upload, ShieldCheck, Heart } from 'lucide-react';
 
 export default function HospitalDashboard() {
   const { hospitalCases, submitHospitalCase } = useContext(AppContext);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [activeTab, setActiveTab] = useState('cases'); // 'metrics' | 'cases' | 'submit'
 
-  // Form States
-  const [patientName, setPatientName] = useState('Rahul Mehra (8y)');
-  const [condition, setCondition] = useState('Leukemia (Chemotherapy)');
-  const [hospital, setHospital] = useState('Fortis Hospital, Noida');
-  const [doctor, setDoctor] = useState('Dr. Rahul Bhargava');
-  const [budgetNeeded, setBudgetNeeded] = useState('600000');
-  const [docName, setDocName] = useState('Fortis_Prescription_Leukemia.pdf');
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  // Form states
+  const [patientName, setPatientName] = useState('');
+  const [condition, setCondition] = useState('');
+  const [budgetNeeded, setBudgetNeeded] = useState('');
+  const [doctor, setDoctor] = useState('');
+  const [fileUploaded, setFileUploaded] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,219 +21,214 @@ export default function HospitalDashboard() {
     submitHospitalCase({
       patientName,
       condition,
-      hospital,
-      doctor,
+      hospital: "Max Healthcare, Gurgaon",
+      doctor: doctor || "Dr. Amit Verma",
       budgetNeeded: parseFloat(budgetNeeded),
-      docName
+      docName: "Max_Patient_Report_" + patientName.replace(/\s+/g, '') + ".pdf"
     });
 
-    setFormSubmitted(true);
+    setSuccessMsg(true);
     setTimeout(() => {
-      setFormSubmitted(false);
-      setShowAddForm(false);
+      setSuccessMsg(false);
       setPatientName('');
       setCondition('');
       setBudgetNeeded('');
+      setDoctor('');
+      setFileUploaded(false);
+      setActiveTab('cases'); // Redirect back to case logs
     }, 2000);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', textAlign: 'left' }}>
+    <div style={{ display: 'flex', gap: '30px', minHeight: '65vh', textAlign: 'left' }}>
       
-      {/* Metrics */}
-      <div className="grid-3">
-        <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Total Funds Received
-          </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--primary)', marginTop: '8px' }}>
-            ₹45,00,000
-          </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Sustaining 18 heart & cancer surgeries.
-          </p>
+      {/* LEFT SIDEBAR NAVIGATION MENU */}
+      <div className="glass-panel" style={{
+        background: '#0f172a',
+        width: '220px',
+        borderRadius: '20px',
+        padding: '24px 16px',
+        color: '#94a3b8',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        flexShrink: 0
+      }}>
+        <div style={{ padding: '0 12px 16px', borderBottom: '1px solid #1e293b', marginBottom: '12px' }}>
+          <strong style={{ color: 'white', fontSize: '15px', fontFamily: 'var(--font-title)', display: 'block' }}>Hospital Portal</strong>
+          <span style={{ fontSize: '11px', color: '#64748b' }}>Clinical Workspace</span>
         </div>
 
-        <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Patient Cases Active
-          </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--secondary)', marginTop: '8px' }}>
-            {hospitalCases.length} Cases
-          </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Pending administrative document reviews.
-          </p>
-        </div>
-
-        <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Linked Hospitals
-          </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--text)', marginTop: '8px' }}>
-            8 Centers
-          </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Fortis, Apollo, Tata Memorial, Max.
-          </p>
-        </div>
+        {[
+          { id: 'metrics', label: "Registry Metrics", icon: <Layout size={16} /> },
+          { id: 'cases', label: "Case Manager", icon: <FileText size={16} /> },
+          { id: 'submit', label: "Submit New Case", icon: <Plus size={16} /> }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '10px 14px',
+              borderRadius: '10px',
+              border: 'none',
+              background: activeTab === tab.id ? 'var(--primary)' : 'transparent',
+              color: activeTab === tab.id ? 'white' : '#94a3b8',
+              fontSize: '13.5px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              width: '100%',
+              textAlign: 'left',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.icon}
+            <span>{tab.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Dynamic forms and listings */}
-      <div style={{ display: 'grid', gridTemplateColumns: showAddForm ? '1fr' : '1.5fr 1fr', gap: '30px' }}>
+      {/* RIGHT CONTENT WORKSPACE */}
+      <div style={{ flexGrow: 1, minWidth: 0 }}>
         
-        {/* Left Column: Registered cases */}
-        <div className="glass-panel" style={{ background: 'white', padding: '30px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h4 style={{ fontSize: '18px' }}>Hospital Patient Register</h4>
-            {!showAddForm && (
-              <button onClick={() => setShowAddForm(true)} className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '13px' }}>
-                <Plus size={14} />
-                <span>Register Patient Case</span>
-              </button>
-            )}
+        {/* TAB 1: REGISTRY METRICS */}
+        {activeTab === 'metrics' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+            <div className="grid-3">
+              <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
+                <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Active Registry Cases</span>
+                <h3 style={{ fontSize: '24px', color: 'var(--primary)', marginTop: '8px' }}>{hospitalCases.length} Patients</h3>
+              </div>
+              <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
+                <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Funding Completed</span>
+                <h3 style={{ fontSize: '24px', color: 'var(--secondary)', marginTop: '8px' }}>{hospitalCases.filter(c => c.status === 'Approved').length} Cases</h3>
+              </div>
+              <div className="glass-panel" style={{ background: 'white', padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <Heart size={24} color="var(--primary)" />
+                <div>
+                  <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '750', textTransform: 'uppercase' }}>Hospital Partner</span>
+                  <strong style={{ display: 'block', fontSize: '14.5px' }}>Max Healthcare</strong>
+                </div>
+              </div>
+            </div>
           </div>
+        )}
 
-          {showAddForm ? (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', background: '#f8fafc', padding: '24px', borderRadius: '16px', border: '1px solid #cbd5e1' }}>
-              <h5 style={{ fontSize: '16px', fontWeight: '700' }}>Submit New Patient Treatment Case</h5>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {/* TAB 2: CASE MANAGER */}
+        {activeTab === 'cases' && (
+          <div className="glass-panel" style={{ background: 'white', padding: '30px' }}>
+            <h4 style={{ fontSize: '18px', marginBottom: '16px' }}>Clinical Case Registry</h4>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13.5px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '2px solid #cbd5e1', textTransform: 'uppercase', color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.5px' }}>
+                    <th style={{ textAlign: 'left', padding: '12px' }}>Date</th>
+                    <th style={{ textAlign: 'left', padding: '12px' }}>Patient Name</th>
+                    <th style={{ textAlign: 'left', padding: '12px' }}>Clinical Condition</th>
+                    <th style={{ textAlign: 'right', padding: '12px' }}>Required Budget</th>
+                    <th style={{ textAlign: 'center', padding: '12px' }}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {hospitalCases.map((c, idx) => (
+                    <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                      <td style={{ padding: '12px' }}>{c.date}</td>
+                      <td style={{ padding: '12px', fontWeight: '600' }}>{c.patientName}</td>
+                      <td style={{ padding: '12px' }}>{c.condition}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', color: 'var(--primary)', fontWeight: '750' }}>₹{c.budgetNeeded.toLocaleString('en-IN')}</td>
+                      <td style={{ padding: '12px', textAlign: 'center' }}>
+                        <span className={`badge ${c.status === 'Approved' ? 'badge-success' : 'badge-warning'}`} style={{ fontSize: '10px' }}>
+                          {c.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: SUBMIT NEW CASE */}
+        {activeTab === 'submit' && (
+          <div className="glass-panel" style={{ background: 'white', padding: '30px' }}>
+            <h4 style={{ fontSize: '18px', marginBottom: '20px' }}>Register New Patient Case</h4>
+            
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '16px' }}>
                 <div className="form-group">
                   <label>Patient Name & Age</label>
                   <input 
                     type="text" 
-                    value={patientName}
-                    onChange={(e) => setPatientName(e.target.value)}
-                    required
+                    value={patientName} 
+                    onChange={(e) => setPatientName(e.target.value)} 
+                    placeholder="e.g. Sumit (6 months)" 
+                    required 
                     className="form-control" 
                   />
                 </div>
                 <div className="form-group">
-                  <label>Medical Diagnosis Condition</label>
+                  <label>Surgeon / Attending Doctor</label>
                   <input 
                     type="text" 
-                    value={condition}
-                    onChange={(e) => setCondition(e.target.value)}
-                    required
+                    value={doctor} 
+                    onChange={(e) => setDoctor(e.target.value)} 
+                    placeholder="Dr. Neeraj Awasthy" 
                     className="form-control" 
                   />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label>Hospital Center</label>
+                  <label>Medical Condition</label>
                   <input 
                     type="text" 
-                    value={hospital}
-                    onChange={(e) => setHospital(e.target.value)}
-                    required
+                    value={condition} 
+                    onChange={(e) => setCondition(e.target.value)} 
+                    placeholder="e.g. Congenital Heart Disease" 
+                    required 
                     className="form-control" 
                   />
                 </div>
                 <div className="form-group">
-                  <label>Treating Doctor (Oncology/Cardiac)</label>
+                  <label>Audited Treatment Cost (₹)</label>
                   <input 
-                    type="text" 
-                    value={doctor}
-                    onChange={(e) => setDoctor(e.target.value)}
-                    required
+                    type="number" 
+                    value={budgetNeeded} 
+                    onChange={(e) => setBudgetNeeded(e.target.value)} 
+                    placeholder="e.g. 450000" 
+                    required 
                     className="form-control" 
                   />
                 </div>
               </div>
 
-              <div className="form-group">
-                <label>Budget Requested (₹)</label>
+              <div className="form-group" style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '2px dashed #cbd5e1', textAlign: 'center' }}>
                 <input 
-                  type="number" 
-                  value={budgetNeeded}
-                  onChange={(e) => setBudgetNeeded(e.target.value)}
-                  required
-                  className="form-control" 
+                  type="file" 
+                  id="file-upload" 
+                  style={{ display: 'none' }} 
+                  onChange={() => setFileUploaded(true)} 
                 />
+                <label htmlFor="file-upload" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <Upload size={24} color="var(--primary)" />
+                  <span style={{ fontSize: '13.5px', color: 'var(--text)', fontWeight: '600' }}>
+                    {fileUploaded ? "✔ Medical Certification PDF Attached" : "Upload Doctor Diagnostics & Hospital Estimate PDF"}
+                  </span>
+                </label>
               </div>
 
-              <div className="form-group">
-                <label>Mock Prescription document upload (Label name)</label>
-                <input 
-                  type="text" 
-                  value={docName}
-                  onChange={(e) => setDocName(e.target.value)}
-                  required
-                  className="form-control" 
-                />
-              </div>
-
-              {formSubmitted ? (
-                <div style={{ color: 'var(--success)', fontWeight: '600' }}>✔ Patient Case submitted! Awaiting Admin review...</div>
+              {successMsg ? (
+                <div style={{ color: 'var(--success)', fontWeight: '600' }}>✔ Patient case submitted for Admin verification approval!</div>
               ) : (
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <button type="button" onClick={() => setShowAddForm(false)} className="btn btn-outline" style={{ flexGrow: 1 }}>
-                    Cancel
-                  </button>
-                  <button type="submit" className="btn btn-primary" style={{ flexGrow: 2 }}>
-                    Upload Case Files
-                  </button>
-                </div>
+                <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
+                  Submit Case
+                </button>
               )}
             </form>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {hospitalCases.map((c, idx) => (
-                <div key={c.id || idx} style={{ border: '1px solid #cbd5e1', padding: '20px', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div>
-                    <span className="badge badge-warning" style={{ fontSize: '10px', marginBottom: '8px', background: c.status === 'Approved' ? 'rgba(22, 163, 74, 0.1)' : 'rgba(245, 158, 11, 0.1)', color: c.status === 'Approved' ? 'var(--success)' : 'var(--warning)' }}>
-                      {c.status}
-                    </span>
-                    <h5 style={{ fontSize: '16px', color: 'var(--text)' }}>Patient: {c.patientName}</h5>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                      Condition: <strong>{c.condition}</strong> • Medical Center: {c.hospital}
-                    </div>
-                    <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                      Attending Surgeon: {c.doctor} • Submitted: {c.date}
-                    </div>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: 'var(--primary)', fontWeight: '600', marginTop: '12px' }}>
-                      <FileText size={12} />
-                      <span>Verified File: {c.docName}</span>
-                    </div>
-                  </div>
-                  
-                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                    <strong style={{ fontSize: '16px', color: 'var(--emergency)', display: 'block', marginBottom: '8px' }}>₹{c.budgetNeeded.toLocaleString('en-IN')}</strong>
-                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Status: Checked</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Right Column: Hospital regulatory guidelines */}
-        {!showAddForm && (
-          <div className="glass-panel" style={{ background: 'white', padding: '30px' }}>
-            <h4 style={{ fontSize: '17px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <ShieldAlert size={18} color="var(--primary)" />
-              <span>Hospital Verification Code</span>
-            </h4>
-            <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
-              Medical institutions onboarding must register under trust compliance. All funds matching bills are settled directly to corporate billing accounts.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12.5px' }}>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>✔</span>
-                <span>Requires official medical superintendent seal</span>
-              </div>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>✔</span>
-                <span>Doctor prescriptions with GMC codes</span>
-              </div>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>✔</span>
-                <span>Post-operative clinical outcome report required</span>
-              </div>
-            </div>
           </div>
         )}
 

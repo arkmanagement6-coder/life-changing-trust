@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { Heart, Bell, User, Layout, LogOut, ArrowRight, ChevronDown } from 'lucide-react';
 
@@ -6,28 +7,29 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
   const { 
     currentUser, 
     logoutUser,
-    activeTab, 
-    setActiveTab, 
-    setCurrentCampaignId,
     notifications 
   } = useContext(AppContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
 
-  const navigateTo = (tabName) => {
-    setActiveTab(tabName);
-    setCurrentCampaignId(null);
+  const navigateTo = (path) => {
+    navigate(path);
     setShowProfileDropdown(false);
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className="sticky-header">
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
         
         {/* Logo */}
-        <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div onClick={() => navigateTo('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
             background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
             width: '40px',
@@ -54,75 +56,75 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
         {/* Center Menu Links */}
         <nav style={{ display: 'flex', gap: '32px' }}>
           <button 
-            onClick={() => navigateTo('home')} 
+            onClick={() => navigateTo('/')} 
             style={{
               background: 'transparent',
               border: 'none',
               fontSize: '15px',
               fontFamily: 'var(--font-title)',
-              fontWeight: activeTab === 'home' ? '600' : '500',
-              color: activeTab === 'home' ? 'var(--primary)' : 'var(--text)',
+              fontWeight: isActive('/') ? '600' : '500',
+              color: isActive('/') ? 'var(--primary)' : 'var(--text)',
               cursor: 'pointer',
               position: 'relative',
               padding: '6px 0'
             }}
           >
             Home
-            {activeTab === 'home' && (
+            {isActive('/') && (
               <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
             )}
           </button>
           
           <button 
-            onClick={() => navigateTo('about')} 
+            onClick={() => navigateTo('/about')} 
             style={{
               background: 'transparent',
               border: 'none',
               fontSize: '15px',
               fontFamily: 'var(--font-title)',
-              fontWeight: activeTab === 'about' ? '600' : '500',
-              color: activeTab === 'about' ? 'var(--primary)' : 'var(--text)',
+              fontWeight: isActive('/about') ? '600' : '500',
+              color: isActive('/about') ? 'var(--primary)' : 'var(--text)',
               cursor: 'pointer',
               position: 'relative',
               padding: '6px 0'
             }}
           >
             About Trust
-            {activeTab === 'about' && (
+            {isActive('/about') && (
               <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
             )}
           </button>
           
           <button 
-            onClick={() => navigateTo('transparency')} 
+            onClick={() => navigateTo('/transparency')} 
             style={{
               background: 'transparent',
               border: 'none',
               fontSize: '15px',
               fontFamily: 'var(--font-title)',
-              fontWeight: activeTab === 'transparency' ? '600' : '500',
-              color: activeTab === 'transparency' ? 'var(--primary)' : 'var(--text)',
+              fontWeight: isActive('/transparency') ? '600' : '500',
+              color: isActive('/transparency') ? 'var(--primary)' : 'var(--text)',
               cursor: 'pointer',
               position: 'relative',
               padding: '6px 0'
             }}
           >
             Financial Transparency
-            {activeTab === 'transparency' && (
+            {isActive('/transparency') && (
               <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
             )}
           </button>
 
           {currentUser && (
             <button 
-              onClick={() => navigateTo('dashboard')} 
+              onClick={() => navigateTo('/dashboard')} 
               style={{
                 background: 'transparent',
                 border: 'none',
                 fontSize: '15px',
                 fontFamily: 'var(--font-title)',
-                fontWeight: activeTab === 'dashboard' ? '600' : '500',
-                color: activeTab === 'dashboard' ? 'var(--primary)' : 'var(--text)',
+                fontWeight: isActive('/dashboard') ? '600' : '500',
+                color: isActive('/dashboard') ? 'var(--primary)' : 'var(--text)',
                 cursor: 'pointer',
                 position: 'relative',
                 padding: '6px 0',
@@ -133,7 +135,7 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
             >
               <Layout size={16} />
               Portal Dashboard
-              {activeTab === 'dashboard' && (
+              {isActive('/dashboard') && (
                 <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
               )}
             </button>
@@ -185,7 +187,7 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
                   textAlign: 'left'
                 }}>
                   <button 
-                    onClick={() => navigateTo('dashboard')} 
+                    onClick={() => navigateTo('/dashboard')} 
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', gap: '8px',
                       background: 'transparent', border: 'none', padding: '10px 12px',
@@ -199,7 +201,7 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
                     <span>My Dashboard</span>
                   </button>
                   <button 
-                    onClick={() => { logoutUser(); setShowProfileDropdown(false); }}
+                    onClick={() => { logoutUser(); setShowProfileDropdown(false); navigateTo('/'); }}
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', gap: '8px',
                       background: 'transparent', border: 'none', padding: '10px 12px',

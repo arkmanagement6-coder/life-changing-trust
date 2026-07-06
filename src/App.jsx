@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AppProvider, AppContext } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -12,7 +13,7 @@ import AuthModal from './components/AuthModal';
 import ChatBot from './components/ChatBot';
 
 function AppContent() {
-  const { activeTab, setActiveTab, currentCampaignId, setCurrentCampaignId } = useContext(AppContext);
+  const navigate = useNavigate();
   
   // Modal toggle states
   const [isDonateOpen, setIsDonateOpen] = useState(false);
@@ -26,43 +27,8 @@ function AppContent() {
   };
 
   const handleCampaignSelect = (id) => {
-    setCurrentCampaignId(id);
-    setActiveTab('home');
+    navigate(`/campaign/${id}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderActiveTab = () => {
-    if (currentCampaignId !== null) {
-      return (
-        <CampaignDetail 
-          onBackClick={() => setCurrentCampaignId(null)}
-          onDonateClick={(campaignId) => triggerDonateModal(campaignId)}
-        />
-      );
-    }
-
-    switch (activeTab) {
-      case 'home':
-        return (
-          <LandingPage 
-            onDonateClick={() => triggerDonateModal(null)}
-            onCampaignClick={handleCampaignSelect}
-          />
-        );
-      case 'about':
-        return <AboutPage />;
-      case 'transparency':
-        return <TransparencyPage />;
-      case 'dashboard':
-        return <DashboardPortal onAuthClick={() => setIsAuthOpen(true)} />;
-      default:
-        return (
-          <LandingPage 
-            onDonateClick={() => triggerDonateModal(null)}
-            onCampaignClick={handleCampaignSelect}
-          />
-        );
-    }
   };
 
   return (
@@ -74,9 +40,34 @@ function AppContent() {
         onAuthClick={() => setIsAuthOpen(true)}
       />
 
-      {/* Main Page Content */}
+      {/* Main Routed Page Content */}
       <main style={{ flexGrow: 1 }}>
-        {renderActiveTab()}
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <LandingPage 
+                onDonateClick={() => triggerDonateModal(null)}
+                onCampaignClick={handleCampaignSelect}
+              />
+            } 
+          />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/transparency" element={<TransparencyPage />} />
+          <Route 
+            path="/dashboard" 
+            element={<DashboardPortal onAuthClick={() => setIsAuthOpen(true)} />} 
+          />
+          <Route 
+            path="/campaign/:id" 
+            element={
+              <CampaignDetail 
+                onBackClick={() => navigate('/')}
+                onDonateClick={(campaignId) => triggerDonateModal(campaignId)}
+              />
+            } 
+          />
+        </Routes>
       </main>
 
       {/* Footer Sitemap */}
@@ -104,7 +95,9 @@ function AppContent() {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <Router>
+        <AppContent />
+      </Router>
     </AppProvider>
   );
 }
