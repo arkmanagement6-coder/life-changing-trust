@@ -1,0 +1,252 @@
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../context/AppContext';
+import { Heart, Bell, User, Layout, ArrowRight } from 'lucide-react';
+
+export default function Navbar({ onDonateClick }) {
+  const { 
+    currentUserRole, 
+    handleRoleChange, 
+    activeTab, 
+    setActiveTab, 
+    setCurrentCampaignId,
+    notifications 
+  } = useContext(AppContext);
+
+  const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const navigateTo = (tabName) => {
+    setActiveTab(tabName);
+    setCurrentCampaignId(null);
+  };
+
+  return (
+    <header className="sticky-header">
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
+        
+        {/* Logo */}
+        <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{
+            background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
+            width: '40px',
+            height: '40px',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 10px rgba(15, 138, 95, 0.2)'
+          }}>
+            <Heart size={20} color="white" fill="white" />
+          </div>
+          <div>
+            <span style={{ fontSize: '22px', fontWeight: '800', fontFamily: 'var(--font-title)', letterSpacing: '0.5px' }}>
+              <span style={{ color: 'var(--primary)' }}>Project</span>
+              <span style={{ color: 'var(--secondary)' }}> LIFE</span>
+            </span>
+            <div style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '700', marginTop: '-4px', letterSpacing: '1px' }}>
+              Trust & Transparency
+            </div>
+          </div>
+        </div>
+
+        {/* Center Menu Links */}
+        <nav style={{ display: 'flex', gap: '32px' }}>
+          <button 
+            onClick={() => navigateTo('home')} 
+            style={{
+              background: 'transparent',
+              border: 'none',
+              fontSize: '15px',
+              fontFamily: 'var(--font-title)',
+              fontWeight: activeTab === 'home' ? '600' : '500',
+              color: activeTab === 'home' ? 'var(--primary)' : 'var(--text)',
+              cursor: 'pointer',
+              position: 'relative',
+              padding: '6px 0'
+            }}
+          >
+            Home
+            {activeTab === 'home' && (
+              <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
+            )}
+          </button>
+          
+          <button 
+            onClick={() => navigateTo('about')} 
+            style={{
+              background: 'transparent',
+              border: 'none',
+              fontSize: '15px',
+              fontFamily: 'var(--font-title)',
+              fontWeight: activeTab === 'about' ? '600' : '500',
+              color: activeTab === 'about' ? 'var(--primary)' : 'var(--text)',
+              cursor: 'pointer',
+              position: 'relative',
+              padding: '6px 0'
+            }}
+          >
+            About Trust
+            {activeTab === 'about' && (
+              <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
+            )}
+          </button>
+          
+          <button 
+            onClick={() => navigateTo('transparency')} 
+            style={{
+              background: 'transparent',
+              border: 'none',
+              fontSize: '15px',
+              fontFamily: 'var(--font-title)',
+              fontWeight: activeTab === 'transparency' ? '600' : '500',
+              color: activeTab === 'transparency' ? 'var(--primary)' : 'var(--text)',
+              cursor: 'pointer',
+              position: 'relative',
+              padding: '6px 0'
+            }}
+          >
+            Financial Transparency
+            {activeTab === 'transparency' && (
+              <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
+            )}
+          </button>
+
+          {currentUserRole !== 'public' && (
+            <button 
+              onClick={() => navigateTo('dashboard')} 
+              style={{
+                background: 'transparent',
+                border: 'none',
+                fontSize: '15px',
+                fontFamily: 'var(--font-title)',
+                fontWeight: activeTab === 'dashboard' ? '600' : '500',
+                color: activeTab === 'dashboard' ? 'var(--primary)' : 'var(--text)',
+                cursor: 'pointer',
+                position: 'relative',
+                padding: '6px 0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              <Layout size={16} />
+              Portal Dashboard
+              {activeTab === 'dashboard' && (
+                <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', backgroundColor: 'var(--primary)', borderRadius: '20px' }}></span>
+              )}
+            </button>
+          )}
+        </nav>
+
+        {/* Right Action Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          
+          {/* Role Switcher */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '6px 12px', borderRadius: '50px' }}>
+            <User size={14} color="var(--text-muted)" />
+            <select 
+              value={currentUserRole}
+              onChange={(e) => handleRoleChange(e.target.value)}
+              style={{
+                border: 'none',
+                background: 'transparent',
+                outline: 'none',
+                fontSize: '13px',
+                fontWeight: '600',
+                color: 'var(--text)',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-title)'
+              }}
+            >
+              <option value="public">Role: Public Guest</option>
+              <option value="donor">Role: Donor</option>
+              <option value="volunteer">Role: Volunteer</option>
+              <option value="csr">Role: CSR Partner</option>
+              <option value="hospital">Role: Hospital Partner</option>
+              <option value="school">Role: School Partner</option>
+              <option value="admin">Role: NGO Admin</option>
+            </select>
+          </div>
+
+          {/* Notifications bell */}
+          <div style={{ position: 'relative' }}>
+            <button 
+              onClick={() => setShowNotifDropdown(!showNotifDropdown)}
+              style={{
+                background: 'white',
+                border: '1px solid #e2e8f0',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+              }}
+            >
+              <Bell size={18} color="var(--text)" />
+              {unreadCount > 0 && (
+                <span style={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '-2px',
+                  backgroundColor: 'var(--emergency)',
+                  color: 'white',
+                  borderRadius: '50%',
+                  width: '18px',
+                  height: '18px',
+                  fontSize: '10px',
+                  fontWeight: '700',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {showNotifDropdown && (
+              <div className="glass-panel" style={{
+                position: 'absolute',
+                top: '50px',
+                right: 0,
+                width: '320px',
+                background: 'white',
+                borderRadius: '16px',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                padding: '16px',
+                zIndex: 200,
+                maxHeight: '350px',
+                overflowY: 'auto'
+              }}>
+                <h4 style={{ fontSize: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '8px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>System Activity Logs</span>
+                  <span style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 'normal' }}>Live updates</span>
+                </h4>
+                {notifications.map(n => (
+                  <div key={n.id} style={{ padding: '8px 0', borderBottom: '1px solid #f8fafc', fontSize: '13px' }}>
+                    <div style={{ fontWeight: '600', color: n.read ? 'var(--text-muted)' : 'var(--text)', display: 'flex', justifyContent: 'space-between' }}>
+                      <span>{n.title}</span>
+                      <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{n.time}</span>
+                    </div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>{n.message}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Quick Donate */}
+          <button onClick={onDonateClick} className="btn btn-primary" style={{ padding: '10px 22px', fontSize: '14px' }}>
+            <span>Donate Now</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+
+      </div>
+    </header>
+  );
+}
