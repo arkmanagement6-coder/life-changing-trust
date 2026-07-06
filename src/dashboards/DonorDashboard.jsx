@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import { Award, Heart, Shield, Download, RefreshCw, Star, Users, ExternalLink } from 'lucide-react';
+import { Award, Heart, Shield, Download, RefreshCw, Star, Users, ExternalLink, Calendar, Flame } from 'lucide-react';
 
 export default function DonorDashboard() {
-  const { donations } = useContext(AppContext);
+  const { donations, currentUser } = useContext(AppContext);
 
   // We show Sneha's or general list representing the active donor
   const myDonations = donations; 
@@ -17,7 +17,6 @@ export default function DonorDashboard() {
   ];
 
   const handlePrint = (d) => {
-    // Generate a printable window containing the CA 80G receipt
     const receiptHTML = `
       <div style="padding:40px; font-family:sans-serif; border:1px solid #cbd5e1; border-radius:10px; max-width:600px; margin:20px auto; color:#1e293b;">
         <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0F8A5F; padding-bottom:15px; margin-bottom:15px;">
@@ -57,55 +56,116 @@ export default function DonorDashboard() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', textAlign: 'left' }}>
       
+      {/* 1. Donor Journey Lifecycle Timeline (HubSpot/Salesforce model) */}
+      <div className="glass-panel" style={{ background: 'white', padding: '30px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div>
+            <h4 style={{ fontSize: '18px' }}>My Donor Lifecycle Journey</h4>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Automated engagement updates matching trust audit schedules.</span>
+          </div>
+          <span className="badge badge-primary" style={{ fontSize: '10px' }}>Status: Warm Donor</span>
+        </div>
+
+        {/* Timeline Stepper */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', marginTop: '20px', flexWrap: 'wrap', gap: '20px 10px' }}>
+          {/* Connector Line */}
+          <div style={{
+            position: 'absolute', top: '15px', left: '10%', right: '10%', height: '3px',
+            backgroundColor: '#cbd5e1', zIndex: 1
+          }}></div>
+          
+          {[
+            { step: 1, name: "1st Donation", sub: "Thank You sent", completed: true },
+            { step: 2, name: "Day 3 Impact", sub: "Story Dispatched", completed: true },
+            { step: 3, name: "Day 7 Suggest", sub: "New Campaign suggestion", completed: true },
+            { step: 4, name: "Day 30 Sub", sub: "Monthly Toggle", completed: false, active: true },
+            { step: 5, name: "Day 60 Audit", sub: "Utilization Report", completed: false }
+          ].map((item, idx) => (
+            <div key={idx} style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '100px', flex: '1 1 0px' }}>
+              <div style={{
+                width: '32px', height: '32px', borderRadius: '50%',
+                backgroundColor: item.completed ? 'var(--primary)' : item.active ? 'var(--secondary)' : '#e2e8f0',
+                color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: '700', fontSize: '12px', border: '4px solid white',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
+              }}>
+                {item.step}
+              </div>
+              <strong style={{ fontSize: '13px', marginTop: '8px', color: item.completed || item.active ? 'var(--text)' : 'var(--text-muted)', textAlign: 'center' }}>
+                {item.name}
+              </strong>
+              <span style={{ fontSize: '10px', color: 'var(--text-muted)', textAlign: 'center', marginTop: '2px' }}>
+                {item.sub}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Metrics Row */}
-      <div className="grid-3">
+      <div className="grid-4">
         <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             My Total Giving
           </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--primary)', marginTop: '8px' }}>
+          <h3 style={{ fontSize: '24px', color: 'var(--primary)', marginTop: '8px' }}>
             ₹{totalDonated.toLocaleString('en-IN')}
           </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Across {myDonations.length} successful sponsorships.
+          <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
+            {myDonations.length} transactions audited
           </p>
         </div>
 
         <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Active Monthly Subscriptions
+          <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+            Monthly Subscriptions
           </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--secondary)', marginTop: '8px' }}>
-            {myDonations.filter(d => d.isMonthly).length} Cases
+          <h3 style={{ fontSize: '24px', color: 'var(--secondary)', marginTop: '8px' }}>
+            {myDonations.filter(d => d.isMonthly).length} Active
           </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Recurring micro-grants processing on the 5th.
+          <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
+            Recurring grants toggle
           </p>
         </div>
 
-        <div className="glass-panel" style={{ background: 'white', padding: '24px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Referral Code Impact
-          </span>
-          <h3 style={{ fontSize: '28px', color: 'var(--text)', marginTop: '8px' }}>
-            ₹15,000 Raised
-          </h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px' }}>
+        <div className="glass-panel" style={{ background: 'white', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div>
+            <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block' }}>
+              My Referral Share Link
+            </span>
             <input 
               type="text" 
               readOnly 
-              value="https://life.org/ref/sneha10" 
-              onClick={() => alert("Referral link copied!")}
+              value={`https://projectlife.org/ref/${currentUser ? currentUser.name.split(' ')[0].toLowerCase() : 'donor'}10`} 
+              onClick={() => { navigator.clipboard.writeText(`https://projectlife.org/ref/${currentUser ? currentUser.name.split(' ')[0].toLowerCase() : 'donor'}10`); alert("Referral link copied!"); }}
               style={{
                 border: '1px solid #cbd5e1',
-                padding: '4px 8px',
+                padding: '6px 8px',
                 borderRadius: '6px',
                 fontSize: '11px',
                 width: '100%',
                 backgroundColor: '#f8fafc',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                marginTop: '6px'
               }} 
             />
+          </div>
+        </div>
+
+        {/* Donation Streak */}
+        <div className="glass-panel" style={{ background: 'white', padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{
+            width: '48px', height: '48px', borderRadius: '50%',
+            backgroundColor: 'rgba(255, 138, 0, 0.1)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: 'var(--secondary)'
+          }}>
+            <Flame size={24} fill="var(--secondary)" />
+          </div>
+          <div>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '750', textTransform: 'uppercase' }}>Giving Streak</span>
+            <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)' }}>🔥 3 Months</strong>
+            <span style={{ fontSize: '10px', color: 'var(--success)', fontWeight: '600' }}>Active Donating Partner</span>
           </div>
         </div>
       </div>

@@ -136,19 +136,20 @@ const initialCampaigns = [
   }
 ];
 
+// Rich CRM donor database records
 const initialDonations = [
-  { id: "TXN1001", donorName: "Amit Sharma", email: "amit.sharma@gmail.com", pan: "ABCPS1234K", amount: 5000, date: "2026-07-05", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0123" },
-  { id: "TXN1002", donorName: "Sneha Patel", email: "sneha.p@yahoo.com", pan: "XYZPD9876J", amount: 2501, date: "2026-07-04", campaignId: 3, campaignTitle: "Emergency Care for Priya's Cancer Chemotherapy", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0124" },
-  { id: "TXN1003", donorName: "Anonymous", email: "anonymous@life.org", pan: "", amount: 10000, date: "2026-07-03", campaignId: 2, campaignTitle: "Sponsor Digital Learning Labs for 5 Rural Schools", isAnonymous: true, isMonthly: false, receiptNo: "80G-2026-0125" },
-  { id: "TXN1004", donorName: "Rohan Verma", email: "rohan.v@gmail.com", pan: "DEFTR4567M", amount: 1001, date: "2026-07-02", campaignId: 4, campaignTitle: "Send 50 Underprivileged Girls to High School", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0126" },
-  { id: "TXN1005", donorName: "Vikram Malhotra", email: "vikram@malhotragroup.in", pan: "AAACM9090L", amount: 50000, date: "2026-06-30", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0127" }
+  { id: "TXN1001", donorName: "Amit Sharma", email: "amit.sharma@gmail.com", pan: "ABCPS1234K", amount: 5000, date: "2026-07-05", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0123", phone: "+91 98330 12345", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "WhatsApp Referral", device: "Mobile", interactionCount: 4 },
+  { id: "TXN1002", donorName: "Sneha Patel", email: "sneha.p@yahoo.com", pan: "XYZPD9876J", amount: 2501, date: "2026-07-04", campaignId: 3, campaignTitle: "Emergency Care for Priya's Cancer Chemotherapy", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0124", phone: "+91 91220 54321", location: "Pune, Maharashtra", frequency: "Monthly", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 8 },
+  { id: "TXN1003", donorName: "Ramesh Kumar", email: "donor@projectlife.org", pan: "ABCPS9090L", amount: 15000, date: "2026-07-03", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: true, receiptNo: "80G-2026-0125", phone: "+91 98110 56789", location: "Delhi, National Capital", frequency: "Monthly", preference: "Healthcare", channel: "Ads Campaign", device: "Mobile", interactionCount: 12 },
+  { id: "TXN1004", donorName: "Rohan Verma", email: "rohan.v@gmail.com", pan: "DEFTR4567M", amount: 1001, date: "2026-07-02", campaignId: 4, campaignTitle: "Send 50 Underprivileged Girls to High School", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0126", phone: "+91 88770 45612", location: "Pune, Maharashtra", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 2 },
+  { id: "TXN1005", donorName: "Vikram Malhotra", email: "vikram@malhotragroup.in", pan: "AAACM9090L", amount: 50000, date: "2026-06-30", campaignId: 1, campaignTitle: "Support Little Aarav's Critical Heart Transplant Surgery", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0127", phone: "+91 99000 88888", location: "Mumbai, Maharashtra", frequency: "One-time", preference: "Healthcare", channel: "Organic Search", device: "Desktop", interactionCount: 15 },
+  { id: "TXN1006", donorName: "Ananya Iyer", email: "ananya.iyer@gmail.com", pan: "BKLPM7788M", amount: 1200, date: "2026-06-25", campaignId: 2, campaignTitle: "Sponsor Digital Learning Labs for 5 Rural Schools", isAnonymous: false, isMonthly: false, receiptNo: "80G-2026-0128", phone: "+91 98220 90909", location: "Bangalore, Karnataka", frequency: "One-time", preference: "Education", channel: "Volunteer Referral", device: "Mobile", interactionCount: 3 }
 ];
 
 const initialVolunteers = [
-  { id: 1, name: "Kunal Gupta", tasksCompleted: 14, points: 1400, referralCount: 8, location: "Delhi" },
-  { id: 2, name: "Ananya Iyer", tasksCompleted: 11, points: 1100, referralCount: 12, location: "Mumbai" },
-  { id: 3, name: "Rahul Deshmukh", tasksCompleted: 9, points: 900, referralCount: 5, location: "Pune" },
-  { id: 4, name: "Pooja Reddy", tasksCompleted: 8, points: 800, referralCount: 9, location: "Hyderabad" }
+  { id: 1, name: "Kunal Gupta", email: "volunteer@projectlife.org", phone: "+91 99880 77665", location: "Delhi", skills: "Marketing, Field Work", availability: "Weekends", referralCode: "KUNAL10", points: 1400, tasksCompleted: 14, clicks: 120, donationsGenerated: 15000, conversionRate: 12.5 },
+  { id: 2, name: "Ananya Iyer", email: "ananya.iyer@gmail.com", phone: "+91 98770 66554", location: "Mumbai", skills: "Design, Fundraising", availability: "Part-time", referralCode: "ANANYA05", points: 1100, tasksCompleted: 11, clicks: 230, donationsGenerated: 25000, conversionRate: 10.8 },
+  { id: 3, name: "Rahul Deshmukh", email: "rahul.desh@gmail.com", phone: "+91 88990 11223", location: "Pune", skills: "Field Work, Translation", availability: "Full-time", referralCode: "RAHUL50", points: 900, tasksCompleted: 9, clicks: 85, donationsGenerated: 4500, conversionRate: 5.3 }
 ];
 
 const initialTasks = [
@@ -159,8 +160,8 @@ const initialTasks = [
 ];
 
 const initialCsrProposals = [
-  { id: 1, companyName: "Tata Consultancy Services (TCS)", projectTitle: "Digital India Literacy Hubs", budgetRequested: 2500000, status: "Under Review", date: "2026-06-25", description: "Requesting CSR grant to fund complete computer labs, networking, and teachers for 25 schools across rural Maharashtra." },
-  { id: 2, companyName: "Infosys Foundation", projectTitle: "Pediatric Heart Surgeries", budgetRequested: 1500000, status: "Approved", date: "2026-06-20", description: "Co-funding critical open heart surgeries for 15 children from low-income families at Narayana Health." }
+  { id: 1, companyName: "Tata Consultancy Services (TCS)", projectTitle: "Digital India Literacy Hubs", budgetRequested: 2500000, status: "Under Review", date: "2026-06-25", description: "Requesting CSR grant to fund complete computer labs, networking, and teachers for 25 schools across rural Maharashtra.", industry: "Information Technology", contact: "Rajesh Gopinathan", cause: "Education", pastActivities: "Funded drinking water systems in 40 schools.", budgetUtilized: 1800000, impactScore: 92, beneficiaries: 4500 },
+  { id: 2, companyName: "Infosys Foundation", projectTitle: "Pediatric Heart Surgeries", budgetRequested: 1500000, status: "Approved", date: "2026-06-20", description: "Co-funding critical open heart surgeries for 15 children from low-income families at Narayana Health.", industry: "CSR Trust", contact: "Sudha Murty", cause: "Healthcare", pastActivities: "Built cancer treatment wards in Bangalore.", budgetUtilized: 1500000, impactScore: 98, beneficiaries: 15 }
 ];
 
 const initialHospitalCases = [
@@ -171,14 +172,20 @@ const initialSchoolCases = [
   { id: "SCH001", schoolName: "Gramin Shiksha Kendra, Wardha", studentCount: 85, requirements: "Desks, Blackboards & Science Kits", budgetNeeded: 180000, status: "Pending Approval", date: "2026-07-04", docName: "Gramin_Wardha_Proposal.pdf" }
 ];
 
-// Pre-registered users for all 6 roles
 const initialUsers = [
-  { email: "donor@projectlife.org", password: "password", name: "Sneha Patel", role: "donor" },
+  { email: "donor@projectlife.org", password: "password", name: "Ramesh Kumar", role: "donor" },
   { email: "volunteer@projectlife.org", password: "password", name: "Kunal Gupta", role: "volunteer" },
   { email: "csr@projectlife.org", password: "password", name: "Vikram Malhotra", role: "csr", organization: "Tata Consultancy Services (TCS)" },
   { email: "hospital@projectlife.org", password: "password", name: "Dr. Amit Verma", role: "hospital", organization: "Max Healthcare, Gurgaon" },
   { email: "school@projectlife.org", password: "password", name: "Sister Mary", role: "school", organization: "Gramin Shiksha Kendra, Wardha" },
   { email: "admin@projectlife.org", password: "password", name: "Chairperson Shalini", role: "admin" }
+];
+
+// Security Audit Logs
+const initialAuditLogs = [
+  { id: "AUD-1001", date: "2026-07-05", eventType: "Failed Payment", severity: "Low", message: "User Sneha Patel triggered a failed Razorpay UPI settlement (Code: U19: Insufficient balance).", flags: "Gateway Code Error" },
+  { id: "AUD-1002", date: "2026-07-04", eventType: "Suspicious Pattern", severity: "Medium", message: "Ramesh Kumar triggered multiple rapid donations of ₹5,000 within 2 seconds. Flagged as double-click or gateway bounce.", flags: "Debounce Filter Alert" },
+  { id: "AUD-1003", date: "2026-07-02", eventType: "High Value Flag", severity: "Info", message: "Vikram Malhotra completed single donation of ₹50,000. Verified PAN and receipt logs.", flags: "Compliance Pass" }
 ];
 
 export const AppProvider = ({ children }) => {
@@ -232,6 +239,11 @@ export const AppProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : initialSchoolCases;
   });
 
+  const [auditLogs, setAuditLogs] = useState(() => {
+    const saved = localStorage.getItem('life_audit_logs');
+    return saved ? JSON.parse(saved) : initialAuditLogs;
+  });
+
   const [notifications, setNotifications] = useState([
     { id: 1, title: "New donation received", message: "Amit Sharma donated ₹5,000 to Aarav's Surgery.", time: "10 mins ago", read: false },
     { id: 2, title: "Campaign verified", message: "Campaign 'Send 50 Underprivileged Girls to High School' is now live.", time: "1 day ago", read: true }
@@ -278,6 +290,52 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('life_school_cases', JSON.stringify(schoolCases));
   }, [schoolCases]);
 
+  useEffect(() => {
+    localStorage.setItem('life_audit_logs', JSON.stringify(auditLogs));
+  }, [auditLogs]);
+
+  // 1. Donor Segmentation Logic
+  const getDonorSegment = (donorEmail) => {
+    const donorDonations = donations.filter(d => d.email.toLowerCase() === donorEmail.toLowerCase());
+    if (donorDonations.length === 0) return 'Cold';
+    
+    const totalAmount = donorDonations.reduce((sum, d) => sum + d.amount, 0);
+    const donationCount = donorDonations.length;
+    const hasMonthly = donorDonations.some(d => d.isMonthly);
+
+    if (totalAmount >= 10000) return 'High Value';
+    if (hasMonthly) return 'Loyal';
+    if (donationCount >= 2 && donationCount <= 3) return 'Warm';
+    if (donationCount === 1) return 'Cold';
+
+    // Cause preferences
+    const hasHealth = donorDonations.some(d => d.campaignTitle.includes("Aarav") || d.campaignTitle.includes("Priya"));
+    if (hasHealth) return 'Healthcare';
+    return 'Education';
+  };
+
+  // 2. Global Analytics Computations
+  const getCrmAnalytics = () => {
+    const totalDonorsCount = new Set(donations.map(d => d.email.toLowerCase())).size;
+    const totalReceipts = donations.reduce((sum, d) => sum + d.amount, 0);
+    const ltv = totalDonorsCount > 0 ? Math.floor(totalReceipts / totalDonorsCount) : 0;
+    
+    // Repeat donation rate
+    const counts = {};
+    donations.forEach(d => {
+      counts[d.email.toLowerCase()] = (counts[d.email.toLowerCase()] || 0) + 1;
+    });
+    const repeats = Object.values(counts).filter(c => c > 1).length;
+    const repeatRate = totalDonorsCount > 0 ? Math.floor((repeats / totalDonorsCount) * 100) : 0;
+
+    return {
+      ltv,
+      repeatRate,
+      totalDonorsCount,
+      totalReceipts
+    };
+  };
+
   // Auth Operations
   const loginUser = (email, password) => {
     const user = userRegistry.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
@@ -296,7 +354,6 @@ export const AppProvider = ({ children }) => {
   };
 
   const signupUser = (details) => {
-    // Check if email already exists
     const exists = userRegistry.some(u => u.email.toLowerCase() === details.email.toLowerCase());
     if (exists) {
       return { success: false, message: "A profile with this email address already exists." };
@@ -310,10 +367,8 @@ export const AppProvider = ({ children }) => {
       organization: details.organization || ""
     };
 
-    // Add to local database
     setUserRegistry(prev => [...prev, newUser]);
     
-    // Automatically log in
     setCurrentUser({
       name: newUser.name,
       email: newUser.email,
@@ -322,17 +377,24 @@ export const AppProvider = ({ children }) => {
       isLoggedIn: true
     });
 
-    // If signed up as volunteer, add to volunteers list
     if (details.role === 'volunteer') {
       const vExists = volunteers.some(v => v.name.toLowerCase() === details.name.toLowerCase());
       if (!vExists) {
         setVolunteers(prev => [...prev, {
           id: prev.length + 1,
           name: details.name,
+          email: details.email,
+          phone: details.phone || "+91 99000 11223",
           tasksCompleted: 0,
           points: 0,
           referralCount: 0,
-          location: details.location || "Online"
+          location: details.location || "Online",
+          skills: details.skills || "Fundraising, Social Media",
+          availability: "Weekends",
+          referralCode: details.name.split(' ')[0].toUpperCase() + Math.floor(10 + Math.random()*90),
+          clicks: 0,
+          donationsGenerated: 0,
+          conversionRate: 0
         }]);
       }
     }
@@ -360,9 +422,26 @@ export const AppProvider = ({ children }) => {
 
   // Actions
   const addDonation = (donationDetails) => {
+    // 3. Security check: Fraud transaction detection
+    const isAnomalousAmount = donationDetails.amount >= 50000;
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    if (isAnomalousAmount) {
+      setAuditLogs(prev => [
+        {
+          id: "AUD-" + Math.floor(2000 + Math.random()*8000),
+          date: currentDate,
+          eventType: "High Value Flag",
+          severity: "Medium",
+          message: `Donation amount of ₹${parseFloat(donationDetails.amount).toLocaleString('en-IN')} from ${donationDetails.name} flagged for compliance checking.`,
+          flags: "Manual Verification Required"
+        },
+        ...prev
+      ]);
+    }
+
     const txnId = "TXN" + Math.floor(1000 + Math.random() * 9000);
     const receiptNo = "80G-2026-" + Math.floor(1000 + Math.random() * 9000);
-    const currentDate = new Date().toISOString().split('T')[0];
     
     const newTxn = {
       id: txnId,
@@ -375,10 +454,16 @@ export const AppProvider = ({ children }) => {
       campaignTitle: donationDetails.campaignTitle,
       isAnonymous: donationDetails.isAnonymous,
       isMonthly: donationDetails.isMonthly,
-      receiptNo
+      receiptNo,
+      phone: donationDetails.phone || "+91 99220 33445",
+      location: donationDetails.location || "Mumbai, Maharashtra",
+      frequency: donationDetails.isMonthly ? "Monthly" : "One-time",
+      preference: donationDetails.campaignTitle.includes("Aarav") || donationDetails.campaignTitle.includes("Priya") ? "Healthcare" : "Education",
+      channel: donationDetails.channel || "Organic Search",
+      device: donationDetails.device || "Mobile",
+      interactionCount: 1
     };
 
-    // Update donations array
     setDonations(prev => [newTxn, ...prev]);
 
     // Update campaigns raised amount
@@ -395,7 +480,27 @@ export const AppProvider = ({ children }) => {
       })
     );
 
-    // Add push notification
+    // If donation was made via a volunteer referral, update that volunteer's metrics
+    if (donationDetails.volunteerRefCode) {
+      setVolunteers(prevVolunteers => 
+        prevVolunteers.map(v => {
+          if (v.referralCode.toLowerCase() === donationDetails.volunteerRefCode.toLowerCase()) {
+            const newClicks = v.clicks + 1;
+            const newDons = v.donationsGenerated + parseFloat(donationDetails.amount);
+            const conversion = Math.floor((newClicks > 0 ? (v.tasksCompleted / newClicks) * 100 : 0));
+            return {
+              ...v,
+              clicks: newClicks,
+              donationsGenerated: newDons,
+              conversionRate: conversion,
+              points: v.points + 200 // Bonus points for generating a donation!
+            };
+          }
+          return v;
+        })
+      );
+    }
+
     const donorDisplay = donationDetails.isAnonymous ? "An anonymous donor" : donationDetails.name;
     const newNotif = {
       id: Date.now(),
@@ -406,7 +511,6 @@ export const AppProvider = ({ children }) => {
     };
     setNotifications(prev => [newNotif, ...prev]);
 
-    // Return txn info for receipt generation
     return newTxn;
   };
 
@@ -457,7 +561,14 @@ export const AppProvider = ({ children }) => {
       ...proposal,
       id: csrProposals.length + 1,
       status: "Under Review",
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0],
+      industry: proposal.industry || "General Industry",
+      contact: proposal.contact || "Trust Liaison Office",
+      cause: proposal.cause || "Healthcare",
+      pastActivities: proposal.pastActivities || "N/A",
+      budgetUtilized: 0,
+      impactScore: 85,
+      beneficiaries: proposal.beneficiaries || 200
     };
     setCsrProposals(prev => [newProposal, ...prev]);
   };
@@ -466,7 +577,6 @@ export const AppProvider = ({ children }) => {
     const caseToApprove = hospitalCases.find(c => c.id === caseId);
     if (!caseToApprove) return;
 
-    // Create a new campaign from the approved case
     const newCampaign = {
       id: campaigns.length + 1,
       title: `Urgent Medical Treatment for ${caseToApprove.patientName}`,
@@ -499,7 +609,6 @@ export const AppProvider = ({ children }) => {
     const caseToApprove = schoolCases.find(c => c.id === caseId);
     if (!caseToApprove) return;
 
-    // Create a new campaign
     const newCampaign = {
       id: campaigns.length + 1,
       title: `Educational Infrastructure for ${caseToApprove.schoolName}`,
@@ -531,16 +640,10 @@ export const AppProvider = ({ children }) => {
     setVolunteerTasks(prev => 
       prev.map(t => t.id === taskId ? { ...t, status: "In Progress" } : t)
     );
-    setNotifications(prev => [
-      {
-        id: Date.now(),
-        title: "Task Claimed",
-        message: `${volunteerName} is now working on: "${volunteerTasks.find(t => t.id === taskId)?.title}"`,
-        time: "Just now",
-        read: false
-      },
-      ...prev
-    ]);
+    // Increase clicks slightly when task starts
+    setVolunteers(prev => 
+      prev.map(v => v.name === volunteerName ? { ...v, clicks: v.clicks + 2 } : v)
+    );
   };
 
   const completeVolunteerTask = (taskId, volunteerName) => {
@@ -555,10 +658,16 @@ export const AppProvider = ({ children }) => {
     setVolunteers(prev => 
       prev.map(v => {
         if (v.name === volunteerName) {
+          const nextCompleted = v.tasksCompleted + 1;
+          const nextClicks = v.clicks + 5;
+          const nextDons = v.donationsGenerated + Math.floor(Math.random() * 5000) + 1000;
           return {
             ...v,
-            tasksCompleted: v.tasksCompleted + 1,
-            points: v.points + task.points
+            tasksCompleted: nextCompleted,
+            points: v.points + task.points,
+            clicks: nextClicks,
+            donationsGenerated: nextDons,
+            conversionRate: Math.floor((nextCompleted / nextClicks) * 100)
           };
         }
         return v;
@@ -611,6 +720,7 @@ export const AppProvider = ({ children }) => {
       csrProposals,
       hospitalCases,
       schoolCases,
+      auditLogs,
       notifications,
       setCurrentCampaignId,
       setActiveTab,
@@ -626,7 +736,9 @@ export const AppProvider = ({ children }) => {
       approveSchoolCase,
       claimVolunteerTask,
       completeVolunteerTask,
-      runAiCampaignGenerator
+      runAiCampaignGenerator,
+      getDonorSegment,
+      getCrmAnalytics
     }}>
       {children}
     </AppContext.Provider>
