@@ -47,7 +47,7 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
               <span style={{ color: 'var(--primary)' }}>Life Changing</span>
               <span style={{ color: 'var(--secondary)' }}> Trust</span>
             </span>
-            <div style={{ fontSize: '7.5px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '800', marginTop: '-4px', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: '7.5px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '800', marginTop: '2px', letterSpacing: '0.5px' }}>
               Educational & Charitable Trust
             </div>
           </div>
