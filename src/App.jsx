@@ -8,12 +8,17 @@ import AboutPage from './pages/AboutPage';
 import TransparencyPage from './pages/TransparencyPage';
 import DashboardPortal from './pages/DashboardPortal';
 import DonateModal from './components/DonateModal';
+import AuthModal from './components/AuthModal';
 import ChatBot from './components/ChatBot';
 
 function AppContent() {
   const { activeTab, setActiveTab, currentCampaignId, setCurrentCampaignId } = useContext(AppContext);
+  
+  // Modal toggle states
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [donateCampaignId, setDonateCampaignId] = useState(null);
+  
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   const triggerDonateModal = (campaignId = null) => {
     setDonateCampaignId(campaignId);
@@ -22,7 +27,7 @@ function AppContent() {
 
   const handleCampaignSelect = (id) => {
     setCurrentCampaignId(id);
-    setActiveTab('home'); // keep activeTab matches the core public navigation
+    setActiveTab('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -49,7 +54,7 @@ function AppContent() {
       case 'transparency':
         return <TransparencyPage />;
       case 'dashboard':
-        return <DashboardPortal />;
+        return <DashboardPortal onAuthClick={() => setIsAuthOpen(true)} />;
       default:
         return (
           <LandingPage 
@@ -62,8 +67,12 @@ function AppContent() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-secondary)' }}>
+      
       {/* Navigation Header */}
-      <Navbar onDonateClick={() => triggerDonateModal(null)} />
+      <Navbar 
+        onDonateClick={() => triggerDonateModal(null)} 
+        onAuthClick={() => setIsAuthOpen(true)}
+      />
 
       {/* Main Page Content */}
       <main style={{ flexGrow: 1 }}>
@@ -78,6 +87,12 @@ function AppContent() {
         isOpen={isDonateOpen}
         onClose={() => setIsDonateOpen(false)}
         selectedCampaignId={donateCampaignId}
+      />
+
+      {/* Floating Authentication Login/Signup Modal */}
+      <AuthModal 
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
       />
 
       {/* Floating AI Chat Assistant */}

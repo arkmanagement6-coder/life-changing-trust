@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import { Heart, Bell, User, Layout, ArrowRight } from 'lucide-react';
+import { Heart, Bell, User, Layout, LogOut, ArrowRight, ChevronDown } from 'lucide-react';
 
-export default function Navbar({ onDonateClick }) {
+export default function Navbar({ onDonateClick, onAuthClick }) {
   const { 
-    currentUserRole, 
-    handleRoleChange, 
+    currentUser, 
+    logoutUser,
     activeTab, 
     setActiveTab, 
     setCurrentCampaignId,
@@ -13,11 +13,13 @@ export default function Navbar({ onDonateClick }) {
   } = useContext(AppContext);
 
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
 
   const navigateTo = (tabName) => {
     setActiveTab(tabName);
     setCurrentCampaignId(null);
+    setShowProfileDropdown(false);
   };
 
   return (
@@ -111,7 +113,7 @@ export default function Navbar({ onDonateClick }) {
             )}
           </button>
 
-          {currentUserRole !== 'public' && (
+          {currentUser && (
             <button 
               onClick={() => navigateTo('dashboard')} 
               style={{
@@ -141,32 +143,87 @@ export default function Navbar({ onDonateClick }) {
         {/* Right Action Bar */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           
-          {/* Role Switcher */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '6px 12px', borderRadius: '50px' }}>
-            <User size={14} color="var(--text-muted)" />
-            <select 
-              value={currentUserRole}
-              onChange={(e) => handleRoleChange(e.target.value)}
-              style={{
-                border: 'none',
-                background: 'transparent',
-                outline: 'none',
-                fontSize: '13px',
-                fontWeight: '600',
-                color: 'var(--text)',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-title)'
-              }}
+          {/* Auth Session / Profile dropdown */}
+          {currentUser ? (
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: '#f1f5f9',
+                  padding: '8px 16px',
+                  borderRadius: '50px',
+                  border: 'none',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-title)',
+                  fontSize: '13.5px',
+                  fontWeight: '600',
+                  color: 'var(--text)',
+                  transition: 'all 0.2s'
+                }}
+              >
+                <User size={14} color="var(--primary)" />
+                <span>Hi, {currentUser.name.split(' ')[0]}</span>
+                <span style={{ fontSize: '10px', textTransform: 'capitalize', color: 'var(--text-muted)' }}>({currentUser.role})</span>
+                <ChevronDown size={14} />
+              </button>
+
+              {showProfileDropdown && (
+                <div className="glass-panel" style={{
+                  position: 'absolute',
+                  top: '50px',
+                  right: 0,
+                  width: '200px',
+                  background: 'white',
+                  borderRadius: '16px',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+                  padding: '8px',
+                  zIndex: 200,
+                  textAlign: 'left'
+                }}>
+                  <button 
+                    onClick={() => navigateTo('dashboard')} 
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', gap: '8px',
+                      background: 'transparent', border: 'none', padding: '10px 12px',
+                      fontSize: '13px', color: 'var(--text)', fontWeight: '600',
+                      cursor: 'pointer', borderRadius: '8px'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <Layout size={14} />
+                    <span>My Dashboard</span>
+                  </button>
+                  <button 
+                    onClick={() => { logoutUser(); setShowProfileDropdown(false); }}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', gap: '8px',
+                      background: 'transparent', border: 'none', padding: '10px 12px',
+                      fontSize: '13px', color: 'var(--emergency)', fontWeight: '600',
+                      cursor: 'pointer', borderRadius: '8px'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(229, 57, 53, 0.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <LogOut size={14} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button 
+              onClick={onAuthClick}
+              className="btn btn-outline" 
+              style={{ padding: '8px 20px', fontSize: '13.5px' }}
             >
-              <option value="public">Role: Public Guest</option>
-              <option value="donor">Role: Donor</option>
-              <option value="volunteer">Role: Volunteer</option>
-              <option value="csr">Role: CSR Partner</option>
-              <option value="hospital">Role: Hospital Partner</option>
-              <option value="school">Role: School Partner</option>
-              <option value="admin">Role: NGO Admin</option>
-            </select>
-          </div>
+              Sign In
+            </button>
+          )}
 
           {/* Notifications bell */}
           <div style={{ position: 'relative' }}>

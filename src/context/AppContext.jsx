@@ -31,7 +31,7 @@ const initialCampaigns = [
     ],
     updates: [
       { date: "2026-07-04", title: "Aarav admitted to pre-op ICU", content: "Aarav has been moved to the cardiac ICU to stabilize his vitals while we await a matching donor heart. Thank you for your support!" },
-      { date: "2026-06-28", title: "Campaign Launched", content: "Campaign was launched to raise ₹12,00,000. Let's join hands to save Aarav." }
+      { date: "2026-06-28", title: "Campaign Launched", content: "Campaign was launched to raise ₹12,0,000. Let's join hands to save Aarav." }
     ]
   },
   {
@@ -171,11 +171,31 @@ const initialSchoolCases = [
   { id: "SCH001", schoolName: "Gramin Shiksha Kendra, Wardha", studentCount: 85, requirements: "Desks, Blackboards & Science Kits", budgetNeeded: 180000, status: "Pending Approval", date: "2026-07-04", docName: "Gramin_Wardha_Proposal.pdf" }
 ];
 
+// Pre-registered users for all 6 roles
+const initialUsers = [
+  { email: "donor@projectlife.org", password: "password", name: "Sneha Patel", role: "donor" },
+  { email: "volunteer@projectlife.org", password: "password", name: "Kunal Gupta", role: "volunteer" },
+  { email: "csr@projectlife.org", password: "password", name: "Vikram Malhotra", role: "csr", organization: "Tata Consultancy Services (TCS)" },
+  { email: "hospital@projectlife.org", password: "password", name: "Dr. Amit Verma", role: "hospital", organization: "Max Healthcare, Gurgaon" },
+  { email: "school@projectlife.org", password: "password", name: "Sister Mary", role: "school", organization: "Gramin Shiksha Kendra, Wardha" },
+  { email: "admin@projectlife.org", password: "password", name: "Chairperson Shalini", role: "admin" }
+];
+
 export const AppProvider = ({ children }) => {
-  const [currentUserRole, setCurrentUserRole] = useState(() => localStorage.getItem('life_role') || 'public');
-  const [currentCampaignId, setCurrentCampaignId] = useState(null);
   const [activeTab, setActiveTab] = useState('home'); // 'home', 'about', 'transparency', 'dashboard'
+  const [currentCampaignId, setCurrentCampaignId] = useState(null);
   
+  // Auth Session States
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem('life_session_user');
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  const [userRegistry, setUserRegistry] = useState(() => {
+    const saved = localStorage.getItem('life_user_registry');
+    return saved ? JSON.parse(saved) : initialUsers;
+  });
+
   // Database States
   const [campaigns, setCampaigns] = useState(() => {
     const saved = localStorage.getItem('life_campaigns');
@@ -219,8 +239,16 @@ export const AppProvider = ({ children }) => {
 
   // Sync to LocalStorage
   useEffect(() => {
-    localStorage.setItem('life_role', currentUserRole);
-  }, [currentUserRole]);
+    if (currentUser) {
+      localStorage.setItem('life_session_user', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('life_session_user');
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    localStorage.setItem('life_user_registry', JSON.stringify(userRegistry));
+  }, [userRegistry]);
 
   useEffect(() => {
     localStorage.setItem('life_campaigns', JSON.stringify(campaigns));
@@ -250,16 +278,87 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('life_school_cases', JSON.stringify(schoolCases));
   }, [schoolCases]);
 
-  // Actions
-  const handleRoleChange = (role) => {
-    setCurrentUserRole(role);
-    if (role !== 'public') {
+  // Auth Operations
+  const loginUser = (email, password) => {
+    const user = userRegistry.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+    if (user) {
+      setCurrentUser({
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        organization: user.organization || null,
+        isLoggedIn: true
+      });
       setActiveTab('dashboard');
-    } else {
-      setActiveTab('home');
+      return { success: true };
     }
+    return { success: false, message: "Invalid email credentials or password." };
   };
 
+  const signupUser = (details) => {
+    // Check if email already exists
+    const exists = userRegistry.some(u => u.email.toLowerCase() === details.email.toLowerCase());
+    if (exists) {
+      return { success: false, message: "A profile with this email address already exists." };
+    }
+
+    const newUser = {
+      email: details.email,
+      password: details.password,
+      name: details.name,
+      role: details.role,
+      organization: details.organization || ""
+    };
+
+    // Add to local database
+    setUserRegistry(prev => [...prev, newUser]);
+    
+    // Automatically log in
+    setCurrentUser({
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      organization: newUser.organization || null,
+      isLoggedIn: true
+    });
+
+    // If signed up as volunteer, add to volunteers list
+    if (details.role === 'volunteer') {
+      const vExists = volunteers.some(v => v.name.toLowerCase() === details.name.toLowerCase());
+      if (!vExists) {
+        setVolunteers(prev => [...prev, {
+          id: prev.length + 1,
+          name: details.name,
+          tasksCompleted: 0,
+          points: 0,
+          referralCount: 0,
+          location: details.location || "Online"
+        }]);
+      }
+    }
+
+    setActiveTab('dashboard');
+    return { success: true };
+  };
+
+  const logoutUser = () => {
+    setCurrentUser(null);
+    setActiveTab('home');
+  };
+
+  const resetPasswordUser = (email, newPassword) => {
+    const exists = userRegistry.some(u => u.email.toLowerCase() === email.toLowerCase());
+    if (!exists) {
+      return { success: false, message: "Email not found in our database." };
+    }
+
+    setUserRegistry(prev => 
+      prev.map(u => u.email.toLowerCase() === email.toLowerCase() ? { ...u, password: newPassword } : u)
+    );
+    return { success: true };
+  };
+
+  // Actions
   const addDonation = (donationDetails) => {
     const txnId = "TXN" + Math.floor(1000 + Math.random() * 9000);
     const receiptNo = "80G-2026-" + Math.floor(1000 + Math.random() * 9000);
@@ -501,7 +600,8 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
-      currentUserRole,
+      currentUser,
+      userRegistry,
       currentCampaignId,
       activeTab,
       campaigns,
@@ -514,7 +614,10 @@ export const AppProvider = ({ children }) => {
       notifications,
       setCurrentCampaignId,
       setActiveTab,
-      handleRoleChange,
+      loginUser,
+      signupUser,
+      logoutUser,
+      resetPasswordUser,
       addDonation,
       submitHospitalCase,
       submitSchoolCase,
