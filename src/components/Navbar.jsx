@@ -43,12 +43,12 @@ export default function Navbar({ onDonateClick, onAuthClick }) {
             <Heart size={20} color="white" fill="white" />
           </div>
           <div>
-            <span style={{ fontSize: '22px', fontWeight: '800', fontFamily: 'var(--font-title)', letterSpacing: '0.5px' }}>
-              <span style={{ color: 'var(--primary)' }}>Project</span>
-              <span style={{ color: 'var(--secondary)' }}> LIFE</span>
+            <span style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'var(--font-title)', letterSpacing: '0.2px' }}>
+              <span style={{ color: 'var(--primary)' }}>Life Changing</span>
+              <span style={{ color: 'var(--secondary)' }}> Trust</span>
             </span>
-            <div style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '700', marginTop: '-4px', letterSpacing: '1px' }}>
-              Trust & Transparency
+            <div style={{ fontSize: '7.5px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '800', marginTop: '-4px', letterSpacing: '0.5px' }}>
+              Educational & Charitable Trust
             </div>
           </div>
         </div>

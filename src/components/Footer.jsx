@@ -32,12 +32,12 @@ export default function Footer({ onDonateClick }) {
               }}>
                 <Heart size={18} color="white" fill="white" />
               </div>
-              <span style={{ fontSize: '20px', fontWeight: '800', fontFamily: 'var(--font-title)', color: 'white' }}>
-                Project <span style={{ color: 'var(--secondary)' }}>LIFE</span>
+              <span style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'var(--font-title)', color: 'white' }}>
+                Life Changing <span style={{ color: 'var(--secondary)' }}>Trust</span>
               </span>
             </div>
             <p style={{ lineHeight: '1.6', fontSize: '13px' }}>
-              Project LIFE is a registered unit of the Life Changing Educational & Charitable Trust. We represent India's most advanced transparency-first healthcare and rural education fundraising platform.
+              Life Changing Educational Charitable Trust represents India's most advanced transparency-first healthcare and rural education fundraising platform.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f8fafc', fontSize: '13px' }}>
