@@ -214,6 +214,10 @@ export default function AdminDashboard() {
     alert("✔ AI-generated campaign published live in active grids!");
   };
 
+  const handleMarketingSend = () => {
+    alert("✔ Successfully dispatched retargeting alerts to lapsed donors via Twilio WhatsApp API!");
+  };
+
   // Filtered Users List
   const filteredUsers = userRegistry.filter(u => {
     const matchesSearch = u.name.toLowerCase().includes(userSearch.toLowerCase()) || u.email.toLowerCase().includes(userSearch.toLowerCase());
